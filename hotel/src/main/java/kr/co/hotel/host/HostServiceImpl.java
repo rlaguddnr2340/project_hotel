@@ -175,7 +175,7 @@ public class HostServiceImpl implements HostService {
 	@Override
 	public Map get_numbers(HostVO hvo) {
 		Map map = new HashMap();
-		
+		System.out.println(hvo.getHost_no()+"S no확인");
 		int reserve_count = hmapper.reserve_count(hvo.getHotel_no());
 		int today_sale = hmapper.today_sale(hvo.getHotel_no());
 		HotelVO review_count = hmapper.review_count(hvo.getHost_no());

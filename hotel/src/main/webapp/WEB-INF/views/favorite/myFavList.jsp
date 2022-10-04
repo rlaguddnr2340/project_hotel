@@ -25,13 +25,15 @@
 			data : {
 				guest_no : ${loginInfo.guest_no}
 			},
+			
 			success : function(res){
 				$("#favListArea").html(res);
 			}
-		});
+		});//END_AJAX
 	}
 	
 	$(function() {
+		
 		getFav();
 		
 		$(".like").on("click", function(){

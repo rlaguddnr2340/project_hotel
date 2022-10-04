@@ -40,7 +40,7 @@
         <property name="jdbcUrl" value="jdbc:log4jdbc:mysql://43.200.76.254:3306/project"/>
         
         <property name="username" value="root"/>
-        <property name="password" value="root1234"/>
+        <property name="password" value="kdigitalroot1234"/>
     </bean>
     
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
