@@ -20,14 +20,15 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <script>
-function cancel(imp){
+function cancel(imp,used_point){
 	console.log(imp);
+	console.log(used_point);
 	$.ajax({
 		url : "/hotel/cancel/cancel.do",
 		type: "post",
 		data : {imp_uid : imp,
 				guest_no : ${loginInfo.guest_no},
-				totalpoint : ${totalpoint}
+				used_point : used_point
 		},
 		success : function(res){
 			console.log(res);
@@ -150,7 +151,7 @@ function accountcancel(reserv_no){
 		                                
 		                                <td>
 		                                	<c:if test="${row.rev_status ==0 && row.use_status == 0 && row.pay_status !=0}">
-		                                		<input type="button" onclick="cancel('${row.imp_uid}');" value="예약취소">
+		                                		<input type="button" onclick="cancel('${row.imp_uid}','${row.used_point} ');" value="예약취소">
 		                                	</c:if>
 		                                	
 		                                	<c:if test="${row.rev_status ==0 && row.use_status == 0 && row.pay_status==0}">

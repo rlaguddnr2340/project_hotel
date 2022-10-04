@@ -18,7 +18,8 @@
 	<insert id="cancelPoint" parameterType="kr.co.hotel.reserve.ReserveVO">
 		insert into point (
 			guest_no, io_point, totalpoint, pointtype, date)
-		values (#{guest_no}, (select used_point from reserv where guest_no = #{guest_no} and imp_uid = #{imp_uid}), (select totalpoint from guest where guest_no=#{guest_no}), 0, (select canceldate from reserv where imp_uid= #{imp_uid}))
+		values 
+			(#{guest_no}, (select used_point from reserv where guest_no = #{guest_no} and imp_uid = #{imp_uid}), (select totalpoint from guest where guest_no=#{guest_no}), 0, (select canceldate from reserv where imp_uid= #{imp_uid}))
 	</insert>
 	
 	<!-- 쿠폰 상태 업데이트 -->
@@ -58,6 +59,7 @@
 	<update id="UpdateCouponStatus" parameterType="kr.co.hotel.reserve.ReserveVO">
 		update coupon set usedate = null, use_status = 0 where coupon_no =#{coupon_no}
 	</update>
+	
 
 
 

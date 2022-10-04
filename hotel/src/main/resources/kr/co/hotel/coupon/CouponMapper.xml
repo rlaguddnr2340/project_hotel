@@ -28,9 +28,17 @@
 			#{coupon_no}, #{guest_no}, #{coupon_price}, now(), DATE_ADD(NOW(), INTERVAL 14 day), 0)
 	</insert>
 	
+	<!-- 내역 페이지의 페이징처리 -->
+	<select id="counthistory" parameterType="kr.co.hotel.coupon.CouponVO" resultType="java.lang.Integer">
+		SELECT count(*) from coupon 
+	</select>
 	
-	
-	
+	<!-- 내역 페이지의 페이징처리 -->
+	<select id="couponpaging" parameterType="kr.co.hotel.coupon.CouponVO" resultType="kr.co.hotel.coupon.CouponVO">
+			select * from coupon
+			order by coupon_date desc
+			limit ${startIdx}, ${pageRow}
+	</select>
 	
 	
 	<!-- 이하 빛찬 -->
