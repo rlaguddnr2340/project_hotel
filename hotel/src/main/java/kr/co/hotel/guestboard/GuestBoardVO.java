@@ -2,6 +2,8 @@ package kr.co.hotel.guestboard;
 
 import java.sql.Timestamp;
 
+import org.json.simple.JSONObject;
+
 import kr.co.hotel.guest.GuestVO;
 import lombok.Data;
 import lombok.ToString;
@@ -36,10 +38,13 @@ public class GuestBoardVO extends GuestVO {
 	private int page; // 현재 페이지
 	private int pageRow; // 한 페이지당 행(게시물)의 개수
 	private int startIdx; // 페이지별 시작 인덱스
+	private int totalCount; // 0912 추가
 	
 	private String sword; // 검색어
-	private String stype; // 검색유형
-	private String stype2; // 검색유형 220830 추가
+	private String stype; // 검색유형 
+	
+	private String stype2; // 검색유형 (문의유형)
+	private String stype3; // 검색유형 220830 추가 (답변상태)
 	
 
 	public GuestBoardVO () {
@@ -51,6 +56,8 @@ public class GuestBoardVO extends GuestVO {
 		this.page = page; 
 		this.pageRow = pageRow;
 	}
+
+
 	
 	
 }

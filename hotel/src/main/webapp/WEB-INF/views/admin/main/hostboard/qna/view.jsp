@@ -134,7 +134,8 @@ th {
 					
 						<tbody>
 							<div class="title">
-								<!-- 답글란 시작 -->
+							
+							<!-- 답글란 시작 -->
 								<table class="board_write" style="margin-top: 20px">
 									<div class="title">
 										<c:if test="${!empty data.hboard_reply}">
@@ -153,15 +154,12 @@ th {
 									</div>
 								</table>
 								<!-- 답글란 끝 -->
-							</div>
-						</tbody>
-					</table>
+							
 					<div class="btnSet" style="text-align: right;">
 						<a href="answer.do?hboard_no=${data.hboard_no}" class="btn">답변등록 및 수정</a>
 						<a href="javascript:goList();" class="btn"
 							style="text-align: right">목록 </a>
 					</div>
-
 				</form>
 			</div>
 		</div>

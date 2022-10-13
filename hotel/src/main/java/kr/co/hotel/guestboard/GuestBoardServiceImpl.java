@@ -26,7 +26,7 @@ public class GuestBoardServiceImpl implements GuestBoardService {
 			totalPage++;
 
 		// 페이지별 시작 인덱스 mySQL 에서는 시작이 0부터
-		int startIdx = (vo.getPage() - 1) * vo.getPageRow();
+		int startIdx = (vo.getPage() - 1) * vo.getPageRow(); // (현재 페이지 -1)*한 페이지당 행(게시물)의 개수
 		vo.setStartIdx(startIdx);
 		List<GuestBoardVO> list = mapper.list(vo);
 
@@ -129,7 +129,8 @@ public class GuestBoardServiceImpl implements GuestBoardService {
 		return mapper.replyupdate(vo) > 0 ? true : false;
 
 	}
-
+	
+	// 관리자 페이지 목록 정렬 조건(관리자용) 22.08.30 추가
 	@Override
 	public List<GuestBoardVO> adminList(GuestBoardVO vo) {
 		return mapper.adminList(vo);

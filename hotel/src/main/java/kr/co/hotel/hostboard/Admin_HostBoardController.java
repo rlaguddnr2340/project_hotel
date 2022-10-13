@@ -1,20 +1,14 @@
 package kr.co.hotel.hostboard;
 
-import java.io.File;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.hotel.host.HostVO;
 import util.ImgHandling;
 
 @Controller
@@ -28,6 +22,14 @@ public class Admin_HostBoardController extends ImgHandling {
 	public String index(Model model, HostBoardVO vo) {
 		model.addAttribute("data", service.index(vo));
 		return "admin/main/hostboard/qna/list";
+	}
+	
+	// 관리자 검색조건 0927 추가
+	@PostMapping("/admin/main/hostboard/qna/list.do")
+	@ResponseBody // 이 body에 응답받은 json객체가 담긴다.
+	public List<HostBoardVO> selectList(HostBoardVO vo){
+		System.out.println("==================================" +vo.getHboard_status());
+		return service.selectList(vo); // view를 리턴하는 게 아니다.
 	}
 
 	// 조회

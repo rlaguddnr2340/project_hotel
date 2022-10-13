@@ -17,6 +17,7 @@ public interface HostBoardMapper {
 	int update(HostBoardVO vo); // 수정
 	int delete(int hboard_no); // 삭제
 	int replyupdate(HostBoardVO vo); // 답변달기
+	List<HostBoardVO> selectList(HostBoardVO vo); // 관리자 페이지 정렬조건
 	
 	
 	List<HostBoardVO> list_in_mypage(HostBoardVO vo);

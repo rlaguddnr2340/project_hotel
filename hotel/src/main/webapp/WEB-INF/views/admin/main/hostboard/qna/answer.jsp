@@ -115,7 +115,7 @@ th {
 						<a class="btn"
 							style="align: left; background-color: grey; border: 2px solid grey"
 							href="javascript:goBack();">이전 </a> <a class="btn"
-							style="align: right;" href="javascript:goSave();">저장 </a>
+							style="align: right;" href="javascript:goSave();">등록 </a>
 					</div>
 				</form>
 			</div>

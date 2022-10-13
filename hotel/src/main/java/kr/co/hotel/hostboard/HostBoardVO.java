@@ -36,9 +36,11 @@ public class HostBoardVO extends HostVO {
 	private int page; // 현재 페이지
 	private int pageRow; // 한 페이지당 행(게시물)의 개수
 	private int startIdx; // 페이지별 시작 인덱스
+	private int totalCount; // 0927 추가
 	
 	private String sword; // 검색어
 	private String stype; // 검색유형
+	private String stype2; // 검색 조건(답변여부) 220927 추가
 	
 
 	public HostBoardVO () {

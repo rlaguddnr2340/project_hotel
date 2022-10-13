@@ -52,6 +52,23 @@
 			LIMIT ${startIdx}, ${pageRow}
 	</select>
 	
+	<!-- 관리자 정렬 조건 -->
+	<select id="selectList" parameterType="kr.co.hotel.hostboard.HostBoardVO" resultType="kr.co.hotel.hostboard.HostBoardVO">
+		SELECT * FROM hostboard
+		<where>
+			<if test="stype != 'all'">
+				hboard_type = #{stype}
+			</if>
+			<if test="stype2 != 'all'">
+				and hboard_status = #{stype2}
+			</if>
+			</where>
+			ORDER BY hboard_regdate DESC
+			LIMIT ${startIdx} , ${pageRow}
+		
+	</select>
+	
+	
 	<!-- 조회하기 -->
 	<select id="view" parameterType="int" resultType="kr.co.hotel.hostboard.HostBoardVO">
 		SELECT *,

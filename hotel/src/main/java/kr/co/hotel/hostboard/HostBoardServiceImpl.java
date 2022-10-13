@@ -7,8 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.hotel.guest.GuestVO;
-
 @Service
 public class HostBoardServiceImpl implements HostBoardService {
 
@@ -97,7 +95,13 @@ public class HostBoardServiceImpl implements HostBoardService {
 	public boolean replyupdate(HostBoardVO vo) {
 		return mapper.replyupdate(vo) > 0 ? true : false;
 	}
-
+	
+	// 관리자 페이지 목록 정렬 조건(관리자용) 22.09.27 추가
+	@Override
+	public List<HostBoardVO> selectList(HostBoardVO vo) {
+		return mapper.selectList(vo);
+	}
+	
 
 	//이하 빛찬(호스트 마이페이지의 내가 남긴 문의글)--------------------
 		@Override
@@ -137,6 +141,8 @@ public class HostBoardServiceImpl implements HostBoardService {
 			map.put("list", list);
 			return map;
 		}
+
+	
 
 	
 }

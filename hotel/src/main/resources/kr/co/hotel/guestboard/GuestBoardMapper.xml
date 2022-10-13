@@ -6,9 +6,9 @@
 	<!-- 등록하기 -->
 	<insert id="insert" parameterType="kr.co.hotel.guestboard.GuestBoardVO" >
 		INSERT INTO guestboard (
-			guest_no, gboard_type, gboard_title, gboard_content, gboard_viewcount, gboard_regdate, gboard_status, filename_org, filename_real
+			guest_no, gboard_type, gboard_title, gboard_writer, gboard_content, gboard_viewcount, gboard_regdate, gboard_status, filename_org, filename_real
 		) VALUES (
-			#{guest_no}, #{gboard_type}, #{gboard_title}, #{gboard_content}, #{gboard_viewcount}, now(), #{gboard_status}, #{filename_org}, #{filename_real}
+			#{guest_no}, #{gboard_type}, #{gboard_title}, #{guest_name}, #{gboard_content}, #{gboard_viewcount}, now(), #{gboard_status}, #{filename_org}, #{filename_real}
 		)  
 		<selectKey keyProperty="gboard_no" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -18,18 +18,24 @@
 	
 	<!-- 총 게시물 수 체크 -->
 	<select id="count" parameterType="kr.co.hotel.guestboard.GuestBoardVO" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM guestboard 
-		<where>
-			<if test="stype != null and stype != ''">
-				<if test="stype !='all'">
-					${stype} LIKE '%${sword}%'
+			SELECT COUNT(*) FROM guestboard 
+			<where>
+				<if test="sword != null and sword != ''">
+					<if test="stype !='all'">
+						${stype} LIKE '%${sword}%'
+					</if>
+					<if test="stype == 'all'">
+						gboard_title LIKE '%${sword}%' or gboard_content LIKE '%${sword}%'
+					</if>
 				</if>
-				<if test="stype == 'all'">
-					gboard_title LIKE '%${sword}%' or gboard_content LIKE '%${sword}%'
+				<if test="stype2 != 'all' and stype2 != null">
+					gboard_type = #{stype2}
 				</if>
-			</if>
-		</where>
-	</select>
+				<if test="stype3 != 'all' and stype3 != null">
+					and gboard_status = #{stype3}
+				</if>
+			</where>
+		</select>
 	
 	<!-- 목록보기 -->
 	<select id="list" parameterType="kr.co.hotel.guestboard.GuestBoardVO" resultType="kr.co.hotel.guestboard.GuestBoardVO">
@@ -51,22 +57,36 @@
 			ORDER BY gboard_regdate DESC
 			LIMIT ${startIdx} , ${pageRow}
 	</select>
-	
+
 	<!-- 관리자 검색조건 22.08.30 -->
 	<select id="adminList" parameterType="kr.co.hotel.guestboard.GuestBoardVO" resultType="kr.co.hotel.guestboard.GuestBoardVO">
 		SELECT * FROM guestboard
-			<where>
-						gboard_type = #{stype} and gboard_status = #{stype2}
-			</where>
-			ORDER BY gboard_regdate DESC
-			LIMIT ${startIdx} , ${pageRow}
+		<where>
+		<if test="sword != null and sword != ''">
+			<if test="stype != 'all'">
+				${stype} LIKE '%${sword}%'
+			</if>
+			<if test="stype == 'all'">
+				gboard_title LIKE '%${sword}%' or gboard_content LIKE '%${sword}%' 
+			</if>
+		</if>
+		<if test="stype2 != 'all' and stype2 != null">
+				gboard_type = #{stype2}
+		</if>
+		<if test="stype3 != 'all' and stype3 != null">
+				and gboard_status = #{stype3}
+		</if>
+		</where>
+		ORDER BY gboard_regdate DESC
+		LIMIT ${startIdx} , ${pageRow}
 	</select>
-	
+
 	<!-- 조회하기 -->
-	<select id="view" parameterType="int" resultType="kr.co.hotel.guestboard.GuestBoardVO">
-		SELECT *, 
-			( SELECT guest_name FROM guest
-				WHERE guest_no = guestboard.guest_no) AS guest_name 
+	<select id="view" parameterType="int"
+		resultType="kr.co.hotel.guestboard.GuestBoardVO">
+		SELECT *,
+		( SELECT guest_name FROM guest
+		WHERE guest_no = guestboard.guest_no) AS guest_name
 		FROM guestboard WHERE gboard_no = #{gboard_no}
 	</select>
 
