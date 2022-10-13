@@ -49,7 +49,7 @@
 						</c:if>
 						
 						<div class="card-body">
-							<span><h5 class="card-title" onclick="location.href='/hotel/main/hotelView.do?hotel_no=${vo.hotel_no}'"><strong>${vo.hotel_name }</strong></h5></span>
+							<span><h5 class="card-title" style="cursor:pointer;" onclick="location.href='/hotel/main/hotelView.do?hotel_no=${vo.hotel_no}'"><strong>${vo.hotel_name }</strong></h5></span>
 							<p class="card-text">리뷰 ${vo.totalReview }개</p>
 							<p class="card-text">${vo.hotel_content }</p>
 							<p class="card-text"><strong>주소</strong><br>${vo.addr }</p>

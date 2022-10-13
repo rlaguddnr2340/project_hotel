@@ -85,4 +85,14 @@ public class CouponController {
 		}
 			return "/admin/main/coupon/couponcreate";
 	}
+	
+	//쿠폰 발급내역
+	@GetMapping("/admin/main/coupon/couponhistory.do")
+	public String couponhistory(Model model, CouponVO vo) {
+		Map map = service.couponpaging(vo);
+		model.addAttribute("couponpaging", map);
+		return "/admin/main/coupon/couponhistory";
+	}
+	
+	
 }

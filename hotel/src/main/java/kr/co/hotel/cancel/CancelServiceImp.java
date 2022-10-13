@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 
 import kr.co.hotel.guest.GuestVO;
+import kr.co.hotel.reserve.ReserveMapper;
+import kr.co.hotel.reserve.ReserveServiceImp;
 import kr.co.hotel.reserve.ReserveVO;
 
 @Service
@@ -26,6 +28,9 @@ public class CancelServiceImp implements CancelService {
 
 	@Autowired
 	CancelMapper mapper;
+	
+	@Autowired
+	ReserveMapper smapper;
 
 	//카드 결제 취소
 	@Override
@@ -88,7 +93,7 @@ public class CancelServiceImp implements CancelService {
 		conn.disconnect();
 		
 		mapper.cancelReserve(vo);
-		gvo.setTotalpoint(gvo.getTotalpoint());
+		gvo.setTotalpoint(smapper.SelectTotalPoint(vo)+vo.getUsed_point());
 		mapper.cancelGuestPoint(gvo);
 		mapper.cancelPoint(vo);
 		

@@ -2,6 +2,7 @@ package kr.co.hotel.host;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 //import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -150,6 +151,8 @@ public class HostController {
 			//해당 호텔의 가용객실 총 수
 			HostVO host_loginInfo =(HostVO)sess.getAttribute("loginInfo2");
 			int host_no = host_loginInfo.getHost_no();
+			System.out.println(host_loginInfo+"=====================");
+			System.out.println(host_loginInfo.getHost_no()+"=======호스트no확인=============");
 			
 			int r =service.room_count(host_no);
 			model.addAttribute("room_count", service.room_count(host_no));
@@ -269,17 +272,22 @@ public class HostController {
 	
 	
 
-	/*
-	 * //캘린더 테이블 만드는 메소드
-	 * 
-	 * @GetMapping("/host/test.do") public void making() { LocalDate now =
-	 * LocalDate.now(); Map map = new HashMap();
-	 * 
-	 * for(int i = -365; i<4000; i++ ) { map.put("date", now.plusDays(i));
-	 * map.put("day", now.plusDays(i).getDayOfWeek());
-	 * hservice.making_calendar(map); }
-	 * 
-	 * }
-	 */
+	
+	  //캘린더 테이블 만드는 메소드
+	  
+	  @GetMapping("/host/test.do") 
+	  public void making() {
+	  
+		  LocalDate now =LocalDate.now(); 
+		  Map map = new HashMap();
+	  
+		  for(int i = -365; i<4000; i++ ) { 
+			  map.put("date", now.plusDays(i));
+			  map.put("day", now.plusDays(i).getDayOfWeek());
+			  hservice.making_calendar(map); 
+			  }
+	  
+	  }
+	 
 	 
 }

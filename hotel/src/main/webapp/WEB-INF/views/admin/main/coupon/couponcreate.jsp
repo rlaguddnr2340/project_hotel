@@ -56,6 +56,15 @@ $(function() {
 		}
 	})
 
+	$("input[name=allcheck]").click(function(){
+		 if($("input[name=allcheck]").prop("checked")){
+		        $("input[name=guest_id]").prop("checked",true);   // 전체 체크
+		    }
+		 else{
+		        $("input[name=guest_id]").prop("checked",false);  // 전체 체크 해제
+		    }
+	});
+	
 })
 
 function search(){
@@ -80,9 +89,12 @@ function create(){
 		alert("쿠폰 종류를 선택하세요!!");
 		return false;
 	} 
-	
 	return true;
 }
+
+
+
+
 
 </script>
 <body> 
@@ -100,7 +112,11 @@ function create(){
 				<form id="frm" method="post" action="/hotel/coupon/create.do" onsubmit="return create();" >
 					<table border="1" class="list" style="float:left;">
 						<tr>
-							<th style="width: 450px;height: 30px">ID</th>
+							<th style="width: 450px;height: 30px">ID 
+								<div style="float: right; color: blue">
+									<input type="checkbox" name="allcheck"> 전체선택
+								</div>	
+							</th>
 						</tr>
 						<tr id="idlist" style="text-align: center;">
 								

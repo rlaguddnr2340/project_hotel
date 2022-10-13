@@ -6,9 +6,9 @@
 	<div class="low" style="display: inline-block; width: 650px;">
 		<c:forEach var="list" items="${hotelList }" varStatus="idx">
 			<div class="container_list" style="
-					<c:if test="${idx.count == 1 || idx.count % 2 != 0}">border-right: 0.5px solid black;</c:if>
+					<c:if test="${idx.count == 1 || idx.count % 2 != 0}">border-right: 0.5px solid rgba(0,0,0,.1);</c:if>
 					<c:if test="${idx.count < 2 && idx.last }"> height: 400px;</c:if>
-					<c:if test="${!idx.last }">border-bottom: 0.5px solid black;</c:if>
+					<c:if test="${!idx.last }">border-bottom: 0.5px solid rgba(0,0,0,.1); </c:if>
 					<c:if test="${idx.count > 2 }">padding-top: 5px;</c:if>">
 				<div>
 					<div class="list_hotel" style="border: 1px;">
@@ -23,7 +23,7 @@
 										<div class="star-ratings-base space-x-2 text-lg">
 											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 										</div>
-									</div>(${list.avgScore})<br>
+									</div><strong>(${list.avgScore})</strong><br>
 									<span style="font-size: 15px;">최저가:  <fmt:formatNumber value="${list.lowPrice }" pattern="#,###"/> ~</span><br>
 									<span style="font-size: 15px;">리뷰 수: ${list.totalReview}, 좋아요 수: ${list.totalLike}</span>
 								</div>
