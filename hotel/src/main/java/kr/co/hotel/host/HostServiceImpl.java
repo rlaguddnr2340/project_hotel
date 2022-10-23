@@ -174,22 +174,35 @@ public class HostServiceImpl implements HostService {
 	//=====================이하 빛찬 작성=================
 	@Override
 	public Map get_numbers(HostVO hvo) {
-		Map map = new HashMap();
-		System.out.println(hvo.getHost_no()+"S no확인");
-		int reserve_count = hmapper.reserve_count(hvo.getHotel_no());
-		int today_sale = hmapper.today_sale(hvo.getHotel_no());
-		HotelVO review_count = hmapper.review_count(hvo.getHost_no());
-		int totalReview = review_count.getTotalReview();
-		double avgScore = review_count.getAvgScore();
+		try {
+			
+		
+			Map map = new HashMap();
+			System.out.println(hvo.getHost_no()+"S no확인");
+			int reserve_count = hmapper.reserve_count(hvo.getHotel_no());
+			int today_sale = hmapper.today_sale(hvo.getHotel_no());
+			HotelVO review_count = hmapper.review_count(hvo.getHost_no());
+			int totalReview = review_count.getTotalReview();
+			double avgScore = review_count.getAvgScore();
+			
+			
+			
+			map.put("today_sale", today_sale);
+			map.put("reserve_count", reserve_count);
+			map.put("totalReview", totalReview);
+			map.put("avgScore", avgScore);
+			return map;
+		
+		}catch(Exception e) {
+			Map map = new HashMap();
+			map.put("today_sale", 0);
+			map.put("reserve_count", 0);
+			map.put("totalReview", 0);
+			map.put("avgScore", 0);
+			return map;
+		}
 		
 		
-		
-		map.put("today_sale", today_sale);
-		map.put("reserve_count", reserve_count);
-		map.put("totalReview", totalReview);
-		map.put("avgScore", avgScore);
-		
-		return map;
 	}
 
 	@Override

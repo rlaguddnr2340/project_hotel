@@ -42,5 +42,11 @@ public class HotelVO {
 	private String selectbox_state;
 	private String sortType;
 	
-
+	
+	public HotelVO() {
+		this.totalReview = 0;
+	}
+	
+	
 }
+	
