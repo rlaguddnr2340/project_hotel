@@ -27,9 +27,9 @@ public class HotelServiceImpl implements HotelService {
 	public Model hotelTopFive(HotelVO vo, Model model) {
 		vo.setState_code(11);
 		model.addAttribute("listSeoul",mapper.hotelTopFive(vo));
-		vo.setState_code(14);
+		vo.setState_code(23);
 		model.addAttribute("listIncheon",mapper.hotelTopFive(vo));
-		vo.setState_code(19);
+		vo.setState_code(31);
 		model.addAttribute("listKyeonggi",mapper.hotelTopFive(vo));
 		return model;
 	}
