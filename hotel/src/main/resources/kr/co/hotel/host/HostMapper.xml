@@ -137,7 +137,7 @@
 	    from reserv 
 	    where rev_date 
 		between DATE_ADD(now(), INTERVAL -6 DAY) and now()
-	    and hotel_no = 292
+	    and hotel_no = #{hotel_no}
 		group by substring( rev_date,1,10)) b
 		on a.dt = b.date
 	</select>
