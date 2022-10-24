@@ -185,6 +185,7 @@
    document.addEventListener("DOMContentLoaded", function(){
 	   
       var swiper = new Swiper(".swiper", {
+    	  loop: true,
     	  sildesPerView: 3,
     	  slidesPerGroup: 3,
     	  spaceBetween: 24,
@@ -194,6 +195,7 @@
         },
         breakpoints: {
         	1280: {
+        		loop: true,
         		slidesPerView: 3,
         		slidesPerGroup: 3,
         	},
