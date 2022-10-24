@@ -85,7 +85,7 @@
 	                                	<c:if test="${Hdata.isConfirm == 0}">신청전</c:if>
 	                                	<c:if test="${Hdata.isConfirm == 1}">승인대기</c:if>
 		                                <c:if test="${Hdata.isConfirm== 2}">승인</c:if>
-		                                <c:if test="${Hdata.isConfirm== -1}">승인반려</c:if>
+		                                <c:if test="${Hdata.isConfirm== 3}">승인반려</c:if>
 	                                </td>
 	                                
 	                                

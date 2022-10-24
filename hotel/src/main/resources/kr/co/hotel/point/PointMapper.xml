@@ -5,8 +5,7 @@
 	
 	<select id="count" parameterType="kr.co.hotel.point.PointVO" resultType="java.lang.Integer">
 	<!-- 테이블 명이 변수로 들어갈수 있음 --><!-- comment테이블은 하나, 여기에 각 페이지의 table_name 구분, 페이지의 게시판 마다 boar_no구분 -->
-		SELECT count(*) from point
-		WHERE guest_no = #{guest_no} 
+		SELECT count(*) from point WHERE guest_no = #{guest_no} 
 	</select>
 	
 	<select id="hotellist" parameterType="kr.co.hotel.reserve.ReserveVO" resultType="kr.co.hotel.main.HotelVO">

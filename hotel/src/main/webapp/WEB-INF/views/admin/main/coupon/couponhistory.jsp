@@ -21,7 +21,7 @@
 		<div id="container">
 			<div id="content">
 				<div class="con_tit">
-					<h2>게스트관리 - [목록]</h2>
+					<h2>쿠폰발급 - [발급 내역]</h2>
 				</div>
 				<!-- //con_tit -->
 				<div class="con">
@@ -58,7 +58,7 @@
 										<td>${couponpaging.totalCount - status.index - ((couponVO.page - 1) * couponVO.pageRow)}</td>
 										<td>${coupon.coupon_no}</td>
 										<td>${coupon.coupon_price}</td>
-										<td>${coupon.guest_no}</td>
+										<td>${coupon.guest_id}</td>
 										<td>${coupon.coupon_date}</td>
 										<td>${coupon.expdate}</td>
 										<td>

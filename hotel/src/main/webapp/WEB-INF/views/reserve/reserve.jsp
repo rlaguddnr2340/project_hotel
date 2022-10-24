@@ -91,6 +91,8 @@ $(function(){
 		if(${totalpoint} < $("#point").val()){
     		alert("포인트가 부족합니다. 다시입력하세요");
 			$("#point").val('');
+			$("#point").focus();
+			
 		}	
 		
 		$("#totalprice").val(totalprice.toLocaleString('ko-KR'));
@@ -104,11 +106,15 @@ $(function(){
 });
 
 function showPopup(data) { 
-	window.open("/hotel/reserve/couponlist.do?guest_no="+data, "coupon_list", "width=500, height=500, left=200, top=200"); 
+	window.open("/hotel/reserve/couponlist.do?guest_id="+data, "coupon_list", "width=500, height=500, left=200, top=200"); 
 }
 
 function resetcoupon(){
 	$("#coupon_price").val("");
+	$("#coupon_no").val("");
+	var totalprice = ${totalprice}-$('#point').val()-$('#coupon_price').val();
+	$("#totalprice").val(totalprice.toLocaleString('ko-KR'));
+	
 }
 
 
@@ -261,7 +267,7 @@ function reserve(){
 			<div class="insertdiv">
 		</div>
 			<b>총 금액적기</b><br><br>
-			<button type="button" style="margin-bottom: 20px;" id="btn" onclick="showPopup(${loginInfo.guest_no});">보유 쿠폰 보기</button>
+			<button type="button" style="margin-bottom: 20px;" id="btn" onclick="showPopup('${loginInfo.guest_id}');">보유 쿠폰 보기</button>
 			<div class="insertdiv2"></div>
 			<input type="text" name="coupon_price" style="width:130px;" id="coupon_price" readonly="readonly" value="">
 			<br>

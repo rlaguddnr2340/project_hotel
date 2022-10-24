@@ -177,25 +177,27 @@
 	
 	<!-- 호텔 객실 신청 toAdmin -->
 	
+	<!-- 호스트(객실등록신청) -> 관리자 등록대기로 변경 -->
 	<update id="room_toAdmin" parameterType="kr.co.hotel.room.RoomVO">
 		
 		UPDATE room
 		SET
 		status = 1
 		WHERE host_no = #{host_no} 
-		AND status = 0 
-		OR status = 3
+		AND (status = 0 
+		OR status = 3 OR status=1)
 		
 	</update>
 	
+	<!-- 호스트(호텔등록신청) -> 관리자 등록대기로 변경 -->
 	<update id="hotel_toAdmin" parameterType="kr.co.hotel.main.HotelVO">
 	
 		UPDATE hotel
 		SET
 		isConfirm = 1
 		WHERE host_no = #{host_no} 
-		AND isConfirm = 0 
-		OR isConfirm = 3
+		AND (isConfirm = 0 
+		OR isConfirm = 3 OR isConfirm = 1)
 		
 	</update>
 	

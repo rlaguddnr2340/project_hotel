@@ -23,9 +23,9 @@
 	<!--쿠폰 생성-->	
 	<insert id="createCoupon" parameterType="kr.co.hotel.coupon.CouponVO">
 		insert into coupon (
-			coupon_no, guest_no, coupon_price, coupon_date, expdate, use_status) 
+			coupon_no, guest_id, coupon_price, coupon_date, expdate, use_status) 
 		values (
-			#{coupon_no}, #{guest_no}, #{coupon_price}, now(), DATE_ADD(NOW(), INTERVAL 14 day), 0)
+			#{coupon_no}, #{guest_id}, #{coupon_price}, now(), DATE_ADD(NOW(), INTERVAL 14 day), 0)
 	</insert>
 	
 	<!-- 내역 페이지의 페이징처리 -->
@@ -47,19 +47,20 @@
 	<!-- 테이블 명이 변수로 들어갈수 있음 --><!-- comment테이블은 하나, 여기에 각 페이지의 table_name 구분, 페이지의 게시판 마다 boar_no구분 -->
 		SELECT count(*) from coupon
 		WHERE
-		guest_no=#{guest_no} 
+		guest_id=#{guest_id} 
 		AND use_status = 0 AND delete_status = 0 
 
 	</select>
 	
 	<select id="C_list" parameterType="kr.co.hotel.coupon.CouponVO" resultType="kr.co.hotel.coupon.CouponVO">
 			select * from coupon
-			where guest_no = #{guest_no}
+			where guest_id = #{guest_id}
 			AND use_status = 0 AND delete_status = 0
 			order by coupon_date desc
 			limit ${startIdx}, ${pageRow}
 
 	</select>
 	
+
 	
 </mapper>

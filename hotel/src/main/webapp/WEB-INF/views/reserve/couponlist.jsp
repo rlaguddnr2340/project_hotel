@@ -36,7 +36,7 @@ function couponset(){
 			<form id="frm">
 			<c:forEach var="list" items="${data}" varStatus="status">
 				<div style="border: 0.5px solid;">
-					<label><input type="radio" class="couponset_check" name="radioArr" value="${status.index}">${list.coupon_price}쿠폰&nbsp; 신규 회원 이벤트쿠폰</label> 
+					<label><input type="radio" class="couponset_check" name="radioArr" value="${status.index}">${list.coupon_price}&nbsp;쿠폰</label> 
 					<input type="hidden" class="coupon_price" name="coupon_price" value="${list.coupon_price}">
 					<input type="hidden" class="couponset_no" name="coupon_no" value="${list.coupon_no}">
 				</div>

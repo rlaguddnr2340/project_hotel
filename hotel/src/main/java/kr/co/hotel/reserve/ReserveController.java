@@ -39,6 +39,7 @@ public class ReserveController {
 	//보유 쿠폰 리스트
 	@GetMapping("/reserve/couponlist.do")
 	public String couponlist(GuestVO vo, Model model) {
+		System.out.println("============id==="+ vo.getGuest_id());
 		model.addAttribute("data", service.couponlist(vo));
 		return "/reserve/couponlist";
 	}

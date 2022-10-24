@@ -25,5 +25,6 @@ public interface CouponService {
 	
 	//---이하 빛찬--------------------------------
 	public Map index(CouponVO vo);
-	
+
+
 }

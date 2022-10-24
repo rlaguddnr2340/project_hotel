@@ -30,5 +30,8 @@ public interface CouponMapper {
 	public int count (CouponVO vo);
 	public List<CouponVO> C_list(CouponVO vo);
 	
+	//게스트번호로 게스트 정보 호출
+	public GuestVO selectguestinfo(CouponVO vo);
+	
 	
 }

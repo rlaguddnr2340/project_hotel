@@ -39,7 +39,7 @@ public class CouponController {
 		//sess.setAttribute("loginInfo", loginInfo1);
 		
 		GuestVO loginInfo= (GuestVO)sess.getAttribute("loginInfo");
-		vo.setGuest_no(loginInfo.getGuest_no());
+		vo.setGuest_id(loginInfo.getGuest_id());
 		Map map = service.index(vo);
 		model.addAttribute("coupon", map);
 		
@@ -77,7 +77,7 @@ public class CouponController {
 		for(String id : guest_id) {
 			for(int i=0; i<coupon_price.size(); i++) {
 				for(int j=0; j<amount.get(i); j++) {
-					cvo.setGuest_no((service.selectGuestNo(id)).getGuest_no());//1
+					cvo.setGuest_id((service.selectGuestNo(id)).getGuest_id());//1
 					cvo.setCoupon_price(coupon_price.get(i));
 					service.createCoupon(cvo);
 				}
