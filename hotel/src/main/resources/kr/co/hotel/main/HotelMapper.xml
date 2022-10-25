@@ -31,7 +31,7 @@
 	 <![CDATA[
 	 	SELECT *, 
 	 		(SELECT MIN(room_price) FROM room r where h.HOTEL_NO = r.hotel_no) as lowPrice,
-	 		(SELECT filename_org FROM image WHERE no = h.hotel_no AND image_type ='HOTEL' limit 1) AS filename
+	 		(SELECT filename_real FROM image WHERE no = h.hotel_no AND image_type ='HOTEL' limit 1) AS filename
 	 	FROM hotel h
         where state_code = #{state_code}
 	 	LIMIT 5;
@@ -42,7 +42,7 @@
 	<select id="searchList" parameterType ="kr.co.hotel.main.HotelVO" resultType="kr.co.hotel.main.HotelVO">
 		SELECT * ,
 			(SELECT  MIN(room_price) FROM room r where r.hotel_no = hotel.hotel_no) as lowPrice,
-			(SELECT filename_org FROM image WHERE no = hotel.hotel_no AND image_type ='HOTEL'  limit 1) AS filename
+			(SELECT filename_real FROM image WHERE no = hotel.hotel_no AND image_type ='HOTEL'  limit 1) AS filename
 		FROM hotel
 		<where>
 			<if test="searchWord ==''">

@@ -161,7 +161,7 @@
 		  	<div class="swiper mySwiper" id="Low" style="display: inline-block; height: 350px">
 		  		<div class="swiper-wrapper" >
 				  	<c:forEach var="roomImage" items="${roomImage}">
-				  		<div class="swiper-slide" id="imgBox"><img alt="사진없음" src="/hotel/upload/${roomImage.filename_org}"></div>
+				  		<div class="swiper-slide" id="imgBox"><img alt="사진없음" src="/hotel/upload/${roomImage.filename_real}"></div>
 				  	</c:forEach>
 		  		</div>
 		  		<div class="swiper-button-next"></div>

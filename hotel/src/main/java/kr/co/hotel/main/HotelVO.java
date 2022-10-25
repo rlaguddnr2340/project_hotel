@@ -32,6 +32,7 @@ public class HotelVO {
 	private int lowPrice;
 	private String filename;
 	private String filename_org;
+	private String filename_real;
 	
 	private int page;
 	private String searchField;

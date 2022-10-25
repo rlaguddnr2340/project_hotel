@@ -34,7 +34,7 @@ body {
 	margin: initial;
 	display: block;
 	width: 40rem;
-	height: 300px;
+	height: 500px;
 	padding: 20px 100px 30px 50px;
 }
 #infoBox {
@@ -45,6 +45,11 @@ body {
 	text-align: center;
 	padding: 5px 5px 5px 5px;
 	margin-top: 5px;
+}
+#infoContent2{
+	width: 470px;
+	margin-left:10px;
+	white-space: normal;
 }
 #reservBtn {
 	margin-top: 5px;
