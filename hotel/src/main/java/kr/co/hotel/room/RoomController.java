@@ -25,9 +25,8 @@ public class RoomController {
 	
 	@GetMapping("/main/roomView.do")
 	public String roomView(RoomVO vo, Model model) {
-		model.addAttribute("roomInfo", service.roomView(vo.getRoom_no()));
-		System.out.println("==================="+model.getAttribute("roomInfo"));
-		List<RoomVO> roomList = service.getRoomImage(vo.getRoom_no());
+		model.addAttribute("roomInfo", service.roomView(vo.getRoom_no())); //첫번째 리스트 : n개의 객실정보
+		List<RoomVO> roomList = service.getRoomImage(vo.getRoom_no()); //두번째 리스트 : 객실마다 n개의 객실이미지
 		model.addAttribute("roomImage",roomList);
 		model.addAttribute("review",service.getReviewList(vo.getRoom_no()));
 		return "/main/roomView";

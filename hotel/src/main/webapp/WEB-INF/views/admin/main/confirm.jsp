@@ -47,7 +47,7 @@
 	<div id="imageArea">
 		<div id="hotel image" style="border: 2px solid black;">
 			<c:forEach var="hotelImage" items="${view.imageH }">
-				<img alt="이미지없음" src="/hotel/upload/${hotelImage.filename_real}">
+				<img alt="이미지없음" src="/hotel/upload/${hotelImage.filename_real}" width="100px" height="100px">
 			</c:forEach>
 		</div>
 		<div id="room image" style="border: 2px solid black; margin-top: 20px;">

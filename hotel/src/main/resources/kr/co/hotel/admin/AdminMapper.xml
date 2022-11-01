@@ -21,9 +21,9 @@
 	
 	<!-- 승인,반려 상태 업데이트 -->
 	<update id="setConfirm" parameterType="kr.co.hotel.main.HotelVO">
-		UPDATE hotel SET isConfirm = #{isConfirm}
+		UPDATE hotel SET isConfirm = #{isConfirm} <!-- 승인여부 업데이트 -->
 		<if test="isConfirm == 3">
-			,reject = #{reject}	
+			,reject = #{reject}	<!-- 반려라면 반려사유까지 같이 업데이트 -->
 		</if>
 		 WHERE host_no = #{host_no}
 	</update>

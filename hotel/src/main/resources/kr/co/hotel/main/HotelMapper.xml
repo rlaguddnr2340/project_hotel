@@ -151,6 +151,7 @@
 		SELECT * FROM image i, hotel h
 		WHERE i.no = h.hotel_no
 		AND host_no = #{host_no}
+		AND image_type = "HOTEL"
 	</select>
 	<select id="getHostRoomImage" parameterType="int" resultType="kr.co.hotel.HRRegister.ImageVO">
 		SELECT * FROM image i, room r

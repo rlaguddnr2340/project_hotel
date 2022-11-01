@@ -81,7 +81,7 @@ public class HotelServiceImpl implements HotelService {
 		map.put("room",mapper.getHostRoom(host_no));
 		map.put("hotel",mapper.getHostHotel(host_no));
 		map.put("imageR",mapper.getHostRoomImage(host_no));
-		map.put("imageH",mapper.getHostRoom(host_no));
+		map.put("imageH",mapper.getHostHotelImage(host_no));
 		return map;
 	}
 	

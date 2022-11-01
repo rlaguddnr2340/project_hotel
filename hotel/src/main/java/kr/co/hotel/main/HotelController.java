@@ -92,6 +92,7 @@ public class HotelController {
 	@GetMapping("/admin/main/confirm.do")
 	public String confirm(AdminVO avo, HostVO hvo, Model model) {
 		model.addAttribute("view",service.hostView(hvo.getHost_no()));
+		System.out.println("================"+service.hostView(hvo.getHost_no()).get("imageH"));
 		return "/admin/main/confirm";
 	}
 	
