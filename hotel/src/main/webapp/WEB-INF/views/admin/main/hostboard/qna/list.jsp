@@ -1,9 +1,8 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ include file="/WEB-INF/views/admin/include/headHtml.jsp"%>
-<%@ include file="/WEB-INF/views/admin/include/top.jsp"%>
-
+<%@ page language="java"	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/WEB-INF/views/admin/include/headHtml.jsp" %>
+<%@ include file="/WEB-INF/views/admin/include/top.jsp" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -44,73 +43,119 @@
 </script>
 
 <script>
-function select2(){
+// 필터 (문의유형, 답변여부)
+function select2(p){
 	$.ajax ({
 		url : "/hotel/admin/main/hostboard/qna/list.do",
 		type : "post",
 		data : {
-			stype : $("#select_type").val(),
-			stype2 : $("#select_status").val()
+			stype2 : $("#select_type").val(), // 문의유형
+			stype3 : $("#select_status").val(), // 답변상태
+			page : p,
+			stype : $("#stype").val(),
+			sword : $("#sword").val()
 		},
 		success : function(res){
 			console.log(res) // 확인용
 			var result = JSON.stringify(res)
 			var jsonInfo = JSON.parse(result)
 			
-			listHtml = ''
+			var totalCount = jsonInfo.totalCount;
 			
-			if (jsonInfo.length == 0){
-				listHtml += '<tr> <td class="first" colspan="8"> 등록된 글이 없습니다.</td> </tr>'
-			} else {
-				for (var key in jsonInfo) {
-					listHtml += "<tr>"
-					
-					// 번호
-					listHtml += "<td>" + jsonInfo[key].totalCount + "</td>"
-					
-					// 문의유형
-					if (jsonInfo[key].hboard_type == '6'){
-						listHtml += "<td>입점</td>"	
-					} else if (jsonInfo[key].hboard_type == '7'){
-						listHtml += "<td>광고/제휴</td>"			
-					} else if (jsonInfo[key].hboard_type == '8') {
-						listHtml += "<td>이용회원</td>"
-					} else if (jsonInfo[key].hboard_type == '9') {
-						listHtml += "<td>이용/기타</td>"
+			let listHtml = ''
+			let topHtml = ''
+			let pageHtml = ''
+			
+				// 전체 글갯수| 현재페이지/전체페이지
+				topHtml += '<div style="float:left">' 
+				topHtml += '<p> <span> <strong>'  
+				topHtml += '총 ' + totalCount + '개 </strong> | \t' + jsonInfo.page +'/'+ jsonInfo.totalPage + '페이지 </span> ' 
+				topHtml += '</p> </div>'
+				
+				// 페이지처리
+				pageHtml += '<div>'
+				pageHtml += '<ul class"paging">'
+				
+				// 이전페이지
+				if (jsonInfo.prev == true){
+					pageHtml += '<li><a href="javascript:select2('+(jsonInfo.startPage-1)+')"> </a> </li>' 
+				}
+				
+				// 페이지별
+				for (var i = 1; i<=jsonInfo.totalPage ; i++){
+					pageHtml += '<li><a href="javascript:select2('+i+')"'
+					if (jsonInfo.page == i){
+						pageHtml += " class='current'"
 					}
+					pageHtml += '>'+i+'</a> </li>'
+				}
+				
+				// 다음 페이지
+				if (jsonInfo.next == true){
+					pageHtml += '<li><a href="javascript:select2('+(jsonInfo.endPage+1)+')"> </a> </li> </ul> </div>' 
+				}
+				
+				// 목록
+				if (jsonInfo.length == 0){
+					listHtml += '<tr> <td class="first" colspan="8"> 등록된 글이 없습니다.</td> </tr>'
+				} else {
+					$(jsonInfo.objList).each(function(index, objList){
+						
+						listHtml += '<tr>';
+						// 번호
+						listHtml += '<td>'+ ((totalCount - index) - ((jsonInfo.page - 1) * jsonInfo.pageRow)) + '</td>'
+						/* <td>${data.totalCount - status.index - ((guestBoardVO.page - 1) * guestBoardVO.pageRow)}</td>
+						<!-- 계산식 = "총 개수 - 인덱스(0부터의 순서) - (현재 페이지 번호 - 1) * 페이지당 개수" -->  */
+					
+						// 문의유형
+						if (objList.hboard_type == '6'){
+							listHtml += "<td>입점</td>"	
+						} else if (objList.hboard_type == '7'){
+							listHtml += "<td>광고/제휴</td>"			
+						} else if (objList.hboard_type == '8') {
+							listHtml += "<td>이용회원</td>"
+						} else if (objList.hboard_type == '9') {
+							listHtml += "<td>이용/기타</td>"
+						}
 					
 					// 제목
 					listHtml += '<td class="txt_l">'
-					listHtml += '<a href="/hotel/admin/main/hostboard/qna/view.do?hboard_no=' + jsonInfo[key].hboard_no + '&stype=' + getParam("stype") + '&sword=' + getParam("sword") +'"">' + jsonInfo[key].hboard_title
-					if (jsonInfo[key].diff <= 3){
+					listHtml += '<a href="/hotel/admin/main/hostboard/qna/view.do?hboard_no=' + objList.hboard_no + '&stype=' + getParam("stype") + '&sword=' + getParam("sword") +'"">' + objList.hboard_title
+					if (objList.diff <= 3){
 						listHtml += '<img src="/hotel/image/boardPic/new (1).png" width="30px">'
 					}
 					listHtml += '</a></td>'
 					
 					// 조회수
-					listHtml += '<td>' + jsonInfo[key].hboard_viewcount + '</td>'
+					listHtml += '<td>' + objList.hboard_viewcount + '</td>'
 					
 					// 작성자
-					listHtml += '<td class="writer">' + jsonInfo[key].host_no + '</td>'
+					listHtml += '<td class="writer">' + objList.hboard_writer + '</td>'
 					
 					// 작성날짜
-					var d = new Date(jsonInfo[key].hboard_regdate)
+					var d = new Date(objList.hboard_regdate)
 					listHtml += '<td class="date">' + d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + '</td>'
 					
 					// 답변상태
-					if (jsonInfo[key].hboard_status == 0 ) {
+					if (objList.hboard_status == 0 ) {
 						listHtml += '<td style="color: red">[답변대기]</td>'
-					} else if (jsonInfo[key].hboard_status == 1 ) {
+					} else if (objList.hboard_status == 1 ) {
 						listHtml += '<td style="color: blue">[답변완료]</td>'
 					}
 				
 					listHtml +='</tr>'
-				}
+				})
 			}
-			$('#selectList').html(listHtml) // 받은 값을 id= selectList에 담아 출력
+		$('#selectList').html(listHtml) // 받은 값을 id= selectList에 담아 출력
+        $('#total').html(topHtml)
+        $('#pagination').html(pageHtml)
 		}
 	})
 }
+	// 바로실행
+	$(function(){
+		select2(1);
+	})
 
 function getParam(sname) {
     var params = location.search.substr(location.search.indexOf("?") + 1);
@@ -140,15 +185,9 @@ function getParam(sname) {
 		<div class="size">
 			<div class="bbs">
 				<table class="list">
-			<!-- <div class="btnSet" style="text-align: right;">
-					<a class="btn" href="list.do">관리 </a>
-				</div> -->
 				<div style="width:100%">
-							<div style="float:left">
-					<p>
-						<span><strong>총 ${data.totalCount}개</strong> |${hostBoardVO.page}/${data.totalPage}페이지</span>
-					</p>
-				</div>
+					<div style="float:left" id="total" onchange="select2();">
+					</div>
 				
 				<!-- 답변 여부별 정렬 시작 -->
 				<select id="select_status" name="select_status" title="답변여부 선택" style="float:right;" onchange="select2();">
@@ -240,18 +279,15 @@ function getParam(sname) {
 				</table>
 
 				<div class="pagenate clear">
-					<ul class='paging'>
+					<ul class='paging' id="pagination" onchange="select2(); return false;">
 						<!-- 이전페이지 -->
 						<c:if test="${data.prev == true }">
 							<li>
 							<a href="list.do?page=${data.startPage - 1 }&stype=${param.stype}&sword=${param.sword}"><</a></li>
 						</c:if>
 						<!-- 페이지별 -->
-						<c:forEach var="p" begin="${data.startPage}"
-							end="${data.endPage }">
-							<li>
-							<a href='list.do?page=${p }&stype=${param.stype}&sword=${param.sword}'
-								<c:if test="${hostBoardVO.page == p }"> class='current'</c:if>>${p }</a></li>
+						<c:forEach var="p" begin="${data.startPage}" end="${data.endPage }">
+							<li><a href='list.do?page=${p }&stype=${param.stype}&sword=${param.sword}' <c:if test="${hostBoardVO.page == p }"> class='current'</c:if>>${p }</a></li> 
 						</c:forEach>
 						<!-- 다음페이지 -->
 						<c:if test="${data.next == true }">
@@ -260,12 +296,12 @@ function getParam(sname) {
 						</c:if>
 					</ul>
 				</div>
-				<!-- 페이지처리 -->
+				<!-- 페이지처리 끝 -->
 
 				<div class="bbsSearch">
-					<form method="get" name="searchForm" id="searchForm" action="">
-						<span class="srchSelect"> <select id="stype" name="stype"
-							class="dSelect" title="검색분류 선택">
+					<form method="get" name="searchForm" id="searchForm" action="" onsubmit="select2(); return false;">
+						<span class="srchSelect"> 
+						<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
 								<option value="all">전체</option>
 								<option value="hboard_title">제목</option>
 								<option value="hboard_content">내용</option>

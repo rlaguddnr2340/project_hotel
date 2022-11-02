@@ -86,7 +86,7 @@ public class HRRegisterController {
 					ivo.setFilename_real((String)map.get("filename_real"));
 					ivo.setImage_order(i);
 					boolean r= service.img_insert(ivo);
-					System.out.println("imgInsert : " + r);
+					System.out.println(	"imgInsert : " + r);
 				}
 			}
 			

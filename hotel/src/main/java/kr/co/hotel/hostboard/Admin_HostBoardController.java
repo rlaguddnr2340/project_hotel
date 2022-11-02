@@ -1,7 +1,22 @@
 package kr.co.hotel.hostboard;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.hotel.hostboard.HostBoardVO;
 import util.ImgHandling;
 
 @Controller
@@ -23,13 +39,19 @@ public class Admin_HostBoardController extends ImgHandling {
 		model.addAttribute("data", service.index(vo));
 		return "admin/main/hostboard/qna/list";
 	}
-	
+
 	// 관리자 검색조건 0927 추가
 	@PostMapping("/admin/main/hostboard/qna/list.do")
 	@ResponseBody // 이 body에 응답받은 json객체가 담긴다.
-	public List<HostBoardVO> selectList(HostBoardVO vo){
-		System.out.println("==================================" +vo.getHboard_status());
-		return service.selectList(vo); // view를 리턴하는 게 아니다.
+	public ResponseObject selectList(HostBoardVO vo) {
+		ResponseObject resObj2 = new ResponseObject();
+		Map map = service.index(vo);
+		resObj2.setTotalCount((int) map.get("totalCount"));
+		resObj2.setTotalPage((int) map.get("totalPage"));
+		resObj2.setPage(vo.getPage());
+		resObj2.setObjList(service.selectList(vo));
+		System.out.println("=============================" + resObj2);
+		return resObj2;
 	}
 
 	// 조회
@@ -53,7 +75,7 @@ public class Admin_HostBoardController extends ImgHandling {
 
 	// 답변달기 처리
 	@PostMapping("/admin/main/hostboard/qna/answer.do")
-	public String update(HostBoardVO vo, Model model) {
+	public String update(HostBoardVO vo, Model model, HttpSession sess) {
 
 		if (service.replyupdate(vo)) {
 			model.addAttribute("data", service.replyupdate(vo));

@@ -83,10 +83,6 @@ th {
 											<c:if test="${data.hboard_type==9}">이용/기타</c:if>
 									</td>
 							<tr>
-								<th>이메일</th>
-								<td>${loginInfo2.host_email }</td>
-							</tr>
-							<tr>
 								<th>제목</th>
 								<td>${data.hboard_title }</td>
 							</tr>

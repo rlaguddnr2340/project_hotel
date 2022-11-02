@@ -85,10 +85,6 @@ th {
 												<option name="gboard_type" value="5">이용/기타 문의</option>
 										</select>
 									</li>
-									<tr>
-										<th>이메일</th>
-										<td><input type="text" id="" value="" placeholder="선택사항입니다.">@<input type="text" id="" value=""></td>
-									</tr>
 							<tr>
 								<th>제목</th>
 								<td><input name="gboard_title" id="gboard_title" type="text" style="width: 90%"></td>

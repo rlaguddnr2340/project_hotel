@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="/WEB-INF/views/includes/H_header.jsp"%>
+<%@ page import="java.net.*"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>

@@ -52,8 +52,7 @@ public class Admin_GuestNoticeController {
 
 	// 등록처리(관리자용)
 	@PostMapping("/admin/main/guestboard/notice/write.do")
-	public String insert(Model model, GuestNoticeVO vo, @RequestParam MultipartFile filename, HttpServletRequest req,
-			HttpSession sess) {
+	public String insert(Model model, GuestNoticeVO vo, @RequestParam MultipartFile filename, HttpServletRequest req, HttpSession sess) {
 		// 첨부파일 처리
 		if (!filename.isEmpty()) {
 			String org = filename.getOriginalFilename();
@@ -72,7 +71,7 @@ public class Admin_GuestNoticeController {
 
 		if (service.insert(vo)) {
 			model.addAttribute("msg", "정상적으로 등록되었습니다.");
-			model.addAttribute("url", "/hotel/admin/main/guestboard/notice/list.do");
+			model.addAttribute("url", "list.do");
 			return "common/alert";
 		} else {
 			model.addAttribute("msg", "저장 실패했습니다.");
@@ -83,14 +82,32 @@ public class Admin_GuestNoticeController {
 	// 수정폼(관리자용)
 	@GetMapping("/admin/main/guestboard/notice/edit.do")
 	public String editForm(Model model, GuestNoticeVO vo) {
+		
 		model.addAttribute("data", service.edit(vo.getGnotice_no()));
+		System.out.println(model.getAttribute("data"));
 		return "/admin/main/guestboard/notice/edit";
 	}
 
 	// 수정처리(관리자용
 	@PostMapping("/admin/main/guestboard/notice/edit.do")
-	public String update(GuestNoticeVO vo, Model model) {
+	public String update(GuestNoticeVO vo, @RequestParam MultipartFile filename, Model model, HttpServletRequest req) {
+	
+		// 첨부파일 처리
+		if (!filename.isEmpty()) {
+			String org = filename.getOriginalFilename();
+			String ext = org.substring(org.lastIndexOf("."));
+			String real = new Date().getTime() + ext;
 
+			// 첨부파일 저장처리
+			String path = req.getRealPath("/upload/");
+			try {
+				filename.transferTo(new File(path + real));
+			} catch (Exception e) {
+			}
+			vo.setFilename_org(org);
+			vo.setFilename_real(real);
+		}
+		
 		if (service.update(vo)) {
 			model.addAttribute("data", service.update(vo));
 			model.addAttribute("msg", "정상적으로 수정되었습니다");

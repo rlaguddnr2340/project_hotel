@@ -85,8 +85,8 @@
 	<select id="view" parameterType="int"
 		resultType="kr.co.hotel.guestboard.GuestBoardVO">
 		SELECT *,
-		( SELECT guest_name FROM guest
-		WHERE guest_no = guestboard.guest_no) AS guest_name
+			( SELECT guest_name FROM guest
+				WHERE guest_no = guestboard.guest_no) AS guest_name
 		FROM guestboard WHERE gboard_no = #{gboard_no}
 	</select>
 

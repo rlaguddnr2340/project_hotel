@@ -91,7 +91,8 @@
 					if (jsonInfo.next == true){
 						pageHtml += '<li><a href="javascript:select('+(jsonInfo.endPage+1)+')"> </a> </li> </ul> </div>' 
 					}
-					
+				
+				// 목록
 				if(jsonInfo.objList.length == 0) {
 					listHtml += '<tr> <td class="first" colspan="8">등록된 글이 없습니다.</td> </tr>'
 				} else {			
@@ -180,15 +181,10 @@
 		<div class="size">
 			<div class="bbs">
 				<table class="list">
-					<!-- <div class="btnSet" style="text-align: right;">
-						<a class="btn" href="list.do">관리 </a>
-					</div> -->
 					<div style="width:100%">
 					
 							<div style="float:left" id="total" onchange="select();">
-								<p>
-									<span><strong>총 ${data.totalCount}개</strong> | ${guestBoardVO.page}/${data.totalPage}페이지</span> 
-								</p> 
+							
 							</div> 
 							
 							<!-- 답변 여부별 정렬 시작 -->
@@ -208,7 +204,7 @@
 								<option value="5">이용/기타</option>
 							</select>
 							</div>
-					</div>
+				
 					<!-- 정렬 끝-->
 					<br>	<br>
 					

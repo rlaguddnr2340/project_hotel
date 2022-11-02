@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="/WEB-INF/views/includes/H_header.jsp"%>
+<%@ page import="java.net.*"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -94,7 +95,11 @@
 										<td>${vo.hnotice_viewcount}</td>
 										
 										<c:if test="${!empty vo.filename_org }">
-											<td><img src="/hotel/image/boardPic/folder.png" width="15px"></td>
+											<td>
+												<a href ="/hotel/download.jsp?oName=${URLEncoder.encode(vo.filename_org, 'UTF-8')}&sName=${vo.filename_real}" target="_blank">
+													<img src="/hotel/image/boardPic/folder.png" width="15px">
+												</a>
+											</td>
 										</c:if>
 										<c:if test="${empty vo.filename_org }">
 										<td></td>
@@ -127,7 +132,11 @@
 										<td>${vo.hnotice_viewcount}</td>
 										
 										<c:if test="${!empty vo.filename_org }">
-											<td><img src="/hotel/image/boardPic/folder.png" width="15px"></td>
+											<td>
+												<a href ="/hotel/download.jsp?oName=${URLEncoder.encode(vo.filename_org, 'UTF-8')}&sName=${vo.filename_real}" target="_blank">
+													<img src="/hotel/image/boardPic/folder.png" width="15px">
+												</a>
+											</td>
 										</c:if>
 										<c:if test="${empty vo.filename_org }">
 										<td></td>

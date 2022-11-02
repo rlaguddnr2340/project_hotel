@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/WEB-INF/views/admin/include/headHtml.jsp" %>
 <%@ include file="/WEB-INF/views/admin/include/top.jsp" %>
-
+<%@ page import="java.net.*"%>
 
 <!DOCTYPE html>
 <html lang="ko">

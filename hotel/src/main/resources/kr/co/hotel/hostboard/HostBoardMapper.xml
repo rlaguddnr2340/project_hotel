@@ -19,17 +19,23 @@
 	<!-- 총 게시물 수 체크 -->
 	<select id="count" parameterType="kr.co.hotel.hostboard.HostBoardVO" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM hostboard 
-		<where>
-			<if test="stype != null and stype != ''">
-				<if test="stype !='all'">
-					${stype} LIKE '%${sword}%'
+			<where>
+				<if test="sword != null and sword != ''">
+					<if test="stype !='all'">
+						${stype} LIKE '%${sword}%'
+					</if>
+					<if test="stype == 'all'">
+						hboard_title LIKE '%${sword}%' or hboard_content LIKE '%${sword}%'
+					</if>
 				</if>
-				<if test="stype == 'all'">
-					hboard_title LIKE '%${sword}%' or hboard_content LIKE '%${sword}%'
+				<if test="stype2 != 'all' and stype2 != null">
+					hboard_type = #{stype2}
 				</if>
-			</if>
-		</where>
-	</select>
+				<if test="stype3 != 'all' and stype3 != null">
+					and hboard_status = #{stype3}
+				</if>
+			</where>
+		</select>
 	
 	<!-- 목록보기 -->
 	<select id="list" parameterType="kr.co.hotel.hostboard.HostBoardVO" resultType="kr.co.hotel.hostboard.HostBoardVO">
@@ -56,13 +62,21 @@
 	<select id="selectList" parameterType="kr.co.hotel.hostboard.HostBoardVO" resultType="kr.co.hotel.hostboard.HostBoardVO">
 		SELECT * FROM hostboard
 		<where>
+		<if test="sword != null and sword != ''">
 			<if test="stype != 'all'">
-				hboard_type = #{stype}
+				${stype} LIKE '%${sword}%'
 			</if>
-			<if test="stype2 != 'all'">
-				and hboard_status = #{stype2}
+			<if test="stype == 'all'">
+				hboard_title LIKE '%${sword}%' or hboard_content LIKE '%${sword}%' 
 			</if>
-			</where>
+		</if>
+		<if test="stype2 != 'all' and stype2 != null">
+				hboard_type = #{stype2}
+		</if>
+		<if test="stype3 != 'all' and stype3 != null">
+				and hboard_status = #{stype3}
+		</if>
+		</where>
 			ORDER BY hboard_regdate DESC
 			LIMIT ${startIdx} , ${pageRow}
 		
@@ -95,8 +109,10 @@
 	<!-- 답글업데이트 -->
 	<update id="replyupdate" parameterType="kr.co.hotel.hostboard.HostBoardVO">
 		UPDATE hostboard SET
-			 hboard_replyupdatedate= now(), hboard_reply=#{hboard_reply}
-			WHERE hboard_no =#{hboard_no}
+			 hboard_replyupdatedate = now(), 
+			 hboard_reply = #{hboard_reply}, 
+			 hboard_status = 1
+			WHERE hboard_no = #{hboard_no}
 	</update>
 	
 	<!-- 삭제하기 -->

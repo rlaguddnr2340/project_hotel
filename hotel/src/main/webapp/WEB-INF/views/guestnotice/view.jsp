@@ -52,37 +52,25 @@ th {
 
 
 
-	// 카카오톡 공유
+	// 카카오톡 공유 api 
 		Kakao.init('7316461b564393db0543f1e130e426e9'); // 앱 키
 	$(function shareKakao() {
 		Kakao.Share.createDefaultButton({
 					container : '#btnKakao',
 					objectType : 'feed',
 					content : {
-						title : '${data.gnotice_title }',
-						description : '${data.gnotice_content}',
+						title : '[${data.gnotice_title }]',
+						description : '클릭 후 이동 시 내용 확인 가능합니다.',
 						imageUrl : 'http://localhost:8080/hotel/image/boardPic/notice.png',
-						link : {
-							mobileWebUrl : 'http://localhost:8080/hotel/guestboard/view.do?gnotice_no=${data.gnotice_no}',
-							webUrl : 'http://localhost:8080/hotel/guestboard/view.do?gnotice_no=${data.gnotice_no}',
+						link : { 
+							mobileWebUrl : 'http://localhost:8080/hotel/guestnotice/view.do?gnotice_no=${data.gnotice_no}&stype=${data.stype}&sword=${data.sword}',
+							webUrl : 'http://localhost:8080/hotel/guestnotice/view.do?gnotice_no=${data.gnotice_no}&stype=${data.stype}&sword=${data.sword}'
 						}
 					}
 				})
-	})
+			})
 	
-/* 	// 트위터, 페이스북 공유 버튼 (추후 적용예정)
-	function shareTwitter() {
-	    var sendText = "둘이놀까"; // 전달할 텍스트
-	    var sendUrl = 'http://localhost:8080/hotel/guestboard/view.do?gnotice_no=${data.gnotice_no}'; // 전달할 URL
-	    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
-	}
-	
-	
-	function shareFacebook() {
-	    var sendUrl = 'http://localhost:8080/hotel/guestboard/view.do?gnotice_no=${data.gnotice_no}'; // 전달할 URL
-	    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
-	}
- */
+
 </script>
 
 </head>
@@ -98,8 +86,7 @@ th {
 			</h6>
 			<br> <br>
 			<div class="bbs">
-				<form method="get" name="frm" id="frm" action="edit.do"
-					enctype="multipart/form-data">
+				<form method="get" name="frm" id="frm" action="edit.do" enctype="multipart/form-data">
 					<input type="hidden" name="gnotice_no" value="${data.gnotice_no}">
 					<input type="hidden" name="guest_no" value="${loginInfo.guest_no}">
 					<table class="board_write">
@@ -134,7 +121,7 @@ th {
 							<tr>
 								<th>첨부파일</th>
 								<td colspan="2">
-									<a href="/hotel/download.jsp?oName=${URLEncoder.encode(data.filename_org, 'UTF-8')}&sName=${data.filename_real}" target="_blank"> ${data.filename_org } 
+									<a href="/hotel/download.jsp?oName=${data.filename_org}&sName=${data.filename_real}" target="_blank"> ${data.filename_org } 
 									</a>
 								</td>
 							</tr>

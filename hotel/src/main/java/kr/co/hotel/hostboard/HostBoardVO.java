@@ -40,8 +40,9 @@ public class HostBoardVO extends HostVO {
 	
 	private String sword; // 검색어
 	private String stype; // 검색유형
-	private String stype2; // 검색 조건(답변여부) 220927 추가
 	
+	private String stype2; // 검색 조건(답변여부) 220927 추가
+	private String stype3; // 검색 유형(답변상태) 220927 추가
 
 	public HostBoardVO () {
 		this.page = 1;

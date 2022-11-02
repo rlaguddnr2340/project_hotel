@@ -92,10 +92,6 @@ th {
 									</select>
 									</li>
 							<tr>
-								<th>이메일</th>
-								<td>${loginInfo.guest_email}</td>
-							</tr>
-							<tr>
 								<th>제목</th>
 								<td>${data.gboard_title }</td>
 							</tr>

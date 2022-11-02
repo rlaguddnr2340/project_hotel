@@ -76,17 +76,13 @@ th {
 												<option name="hboard_type" value="9">이용/기타 문의</option>
 										</select>
 									</li>
-									<tr>
-										<th>이메일</th>
-										<td><input type="text" id="" value="" placeholder="선택사항입니다.">@<input type="text" id="" value=""></td>
-									</tr>
 							<tr>
 								<th>제목</th>
 								<td><input name="hboard_title" id="hboard_title" type="text" style="width: 90%"></td>
 							</tr>
 							<tr>
 								<th>작성자</th>
-								<td>${loginInfo2.host_name}</td>
+									<td ><input type ="text" id="host_name"  name="host_name" value="${loginInfo2.host_name}" readonly="readonly"></td>
 							</tr>
 							<tr>
 								<th>문의내용</th>

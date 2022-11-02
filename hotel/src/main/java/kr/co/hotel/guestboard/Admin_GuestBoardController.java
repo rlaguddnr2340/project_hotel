@@ -103,7 +103,7 @@ public class Admin_GuestBoardController extends ImgHandling {
 
 	// api 목록 url 호출 (22.09.28 - 22.09.29)
 	@GetMapping("/test/guestboard/qna/list.do")
-	public String api(GuestBoardVO vo, HttpServletResponse res, Model model) throws Exception {
+	public String api(GuestBoardVO vo, HttpServletResponse res, Model model, Object objList) throws Exception {
 		String apiUrl = "http://localhost:8080//hotel/admin/main/guestboard/qna/list.do";
 
 		URL url = new URL(apiUrl);
@@ -121,10 +121,14 @@ public class Admin_GuestBoardController extends ImgHandling {
 			}
 
 			String jsonString = responseBody.toString();
-
+				
 			JSONParser jsonParse = new JSONParser();
-			JSONArray jsonArr = (JSONArray) jsonParse.parse(jsonString);
-
+			JSONObject jsonObj = (JSONObject) jsonParse.parse(jsonString); // json 객체니까 JSONObject로 객체화해준다. {}
+			
+			JSONArray jsonArr = (JSONArray) jsonObj.get("objList"); // objList가 배열이므로 
+			
+			System.out.println("jsonArr========================"+jsonArr);
+			
 			List<GuestBoardVO> boardList = new ArrayList<GuestBoardVO>(); // 데이터를 저장할 List
 			for (int i = 0; i < jsonArr.size(); i++) {
 				GuestBoardVO vo2 = new GuestBoardVO(); // GuestBoardVO 객체 생성
@@ -136,14 +140,17 @@ public class Admin_GuestBoardController extends ImgHandling {
 				vo2.setGboard_viewcount(Integer.parseInt(String.valueOf(newJsonObj.get("gboard_viewcount"))));
 				vo2.setGboard_content(String.valueOf(newJsonObj.get("gboard_content")));
 //				System.out.println(newJsonObj.get("gboard_regdate"));
+
 				Long regdate = Long.parseLong(String.valueOf(newJsonObj.get("gboard_regdate"))); // Object->String->Long
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 날짜포맷지정
+
 				System.out.println(sdf.format(new Timestamp(regdate))); // Long타입의 날짜값을 Timestamp타입으로 변경->날짜포맷지정
+
 				vo2.setGboard_regdate(new Timestamp(regdate));
 				vo2.setGboard_title(String.valueOf(newJsonObj.get("gboard_title")));
 				vo2.setGboard_status(Integer.parseInt(String.valueOf(newJsonObj.get("gboard_status"))));
 				vo2.setGboard_writer(String.valueOf(newJsonObj.get("gboard_writer")));
-
+				
 				boardList.add(vo2);
 
 //				System.out.println(newJsonObj.get("gboard_title"));
